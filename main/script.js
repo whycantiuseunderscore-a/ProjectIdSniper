@@ -136,7 +136,7 @@ function main() {
 						// increment numberToCheck by step
 						numberToCheck += step;
 						// multiply the value of step by 2.4, round it up, then add by 1
-						step *= 2.4;
+						step *= 2;
 						step = Math.ceil(step);
 						step += 1;
 						sames = 0;
@@ -157,7 +157,7 @@ function main() {
 						}
 					}
 					// Redo after 100 milliseconds
-					setTimeout(main, 100)
+					setTimeout(main, 1200+Math.random()*800)
 				});
 		}).catch(error => {
 			console.error('Error:', error);
