@@ -62,7 +62,7 @@ function formatNumber(n){
 }
 
 function formatTime(n) {
-	if (n < 60) return `${Math.floor(n / 1)} seconds, ${formatTime(n%1)}`;
+	if (n < 60) return `${Math.floor(n / 1)} seconds`;
 	if (n < 3600) return `${Math.floor(n / 60)} minutes, ${formatTime(n%60)}`;
 	if (n < 86400) return `${Math.floor(n / 3600)} hours, ${formatTime(n%3600)}`;
 	if (Math.floor(n/86400) < 365) return `${Math.floor(n / 86400)} days, ${formatTime(n%86400)}`;
