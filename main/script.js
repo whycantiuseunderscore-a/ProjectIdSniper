@@ -17,7 +17,7 @@ async function getImageBlob(url) {
 //         console.error('Error:', error);
 //     });
 
-getImageBlob('https://trampoline.turbowarp.org/thumbnails/104?width=100&height=100')
+getImageBlob('https://trampoline.turbowarp.org/thumbnails/104?width=40&height=40')
     .then(blob => {
         console.log('Image Blob:', blob);
     })
@@ -34,7 +34,7 @@ getImageBlob('https://trampoline.turbowarp.org/thumbnails/104?width=100&height=1
 //         console.error('Error:', error);
 //     });
 
-const nonexisty = 'https://trampoline.turbowarp.org/thumbnails/9999999999?width=100&height=100';
+const nonexisty = 'https://trampoline.turbowarp.org/thumbnails/9999999999?width=40&height=40';
 getImageBlob(nonexisty)
     .then(blob => {
         console.log('Image Blob:', blob);
