@@ -159,7 +159,7 @@ function main() {
 						document.getElementById('result').innerHTML = existenceConfirmed + "<br>Unconfirmed: " + numberToCheck;
 					}
 					// Redo after 100 milliseconds
-					setTimeout(main, 300)
+					setTimeout(main, 100)
 				});
 		}).catch(error => {
 			console.error('Error:', error);
