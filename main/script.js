@@ -45,7 +45,7 @@ getImageBlob(nonexisty)
 
 // see whether the fetched image has the same contents as nonexisty
 let sames = 0;
-let numberToCheck = 1329990000;
+let numberToCheck = 1397777777;
 let milestone = null;
 let step = 4096;
 let decrementStep = 1;
@@ -62,10 +62,11 @@ function formatNumber(n){
 }
 
 function formatTime(n) {
-	if (n < 60) return `${Math.ceil(n / 1)} seconds`;
-	if (n < 3600) return `${Math.ceil(n / 60)} minutes`;
-	if (n < 86400) return `${Math.ceil(n / 3600)} hours`;
-	return `${Math.ceil(n / 86400)} days`;
+	if (n < 60) return `${Math.floor(n / 1)} seconds, ${formatTime(n%1)}`;
+	if (n < 3600) return `${Math.floor(n / 60)} minutes, ${formatTime(n%60)}`;
+	if (n < 86400) return `${Math.floor(n / 3600)} hours, ${formatTime(n%3600)}`;
+	if (Math.floor(n/86400) < 365) return `${Math.floor(n / 86400)} days, ${formatTime(n%86400)}`;
+	if (Math.floor(n/86400) >= 365) return `${Math.floor(n / 31536000)} years, ${formatTime(n%31536000)}`;
 }
 
 function main() {
@@ -80,7 +81,7 @@ function main() {
 		})
 		.then(buffer => {
 			fetchedImageData = new Uint8Array(buffer);
-			return getImageBlob(`https://trampoline.turbowarp.org/thumbnails/${numberToCheck}?width=100&height=100`)
+			return getImageBlob(`https://trampoline.turbowarp.org/thumbnails/${numberToCheck}?width=40&height=40`)
 				.then(blob => blob.arrayBuffer())
 				.then(buffer => {
 					comparisonImageData = new Uint8Array(buffer);
@@ -93,7 +94,7 @@ function main() {
 						// set existenceConfirmed to numberToCheck
 						existenceConfirmed = numberToCheck;
 						// update displayed result
-						document.getElementById('result').textContent = formatNumber(existenceConfirmed);
+						document.getElementById('result').innerHTML = existenceConfirmed;
 						// compute and display how much `existenceConfirmed` increased per second
 						try {
 							const now = Date.now();
@@ -118,7 +119,7 @@ function main() {
 							if (!averageSpeed) {
 								speedText = '0 projects/s';
 							} else if (Math.abs(averageSpeed) < 1000) {
-								speedText = `${averageSpeed.toFixed(2)} projects/s`;
+								speedText = `${averageSpeed.toFixed(3)} projects/s`;
 							} else {
 								speedText = `${formatNumber(Math.round(averageSpeed))} projects/s`;
 							}
@@ -155,9 +156,10 @@ function main() {
 							step = Math.floor(Math.random() * sames) + 1;
 							numberToCheck += step;
 						}
+						document.getElementById('result').innerHTML = existenceConfirmed + "<br>Unconfirmed: " + numberToCheck;
 					}
 					// Redo after 100 milliseconds
-					setTimeout(main, 500+Math.random()*500)
+					setTimeout(main, 300)
 				});
 		}).catch(error => {
 			console.error('Error:', error);
